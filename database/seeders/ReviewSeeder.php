@@ -12,7 +12,7 @@ class ReviewSeeder extends Seeder
      *
      * @return void
      */
-    protected $model = Review::class;
+    
 
     public function run()
     {

@@ -12,7 +12,7 @@ class ProductSeeder extends Seeder
      *
      * @return void
      */
-    protected $model = Product::class;
+    
     public function run()
     {
         Product::factory()->count(50)->create();
