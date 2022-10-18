@@ -15,14 +15,14 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name'   => $this->name,
+            'name'         => $this->name,
             'descriptions' => $this->detail,
-            'price' => $this->price,
-            'stock' => $this->stock == 0 ? 'Out of Stock' : $this->stock,
-            'discount' => $this->discount,
-            'total_price' => round((1 - $this->discount / 100) * $this->price,2),
+            'price'        => $this->price,
+            'stock'        => $this->stock == 0 ? 'Out of Stock' : $this->stock,
+            'discount'     => $this->discount,
+            'total_price'  => round((1 - $this->discount / 100) * $this->price,2),
 
-            'ratings' => $this->reviews->count() > 0 ?
+            'ratings'      => $this->reviews->count() > 0 ?
                 round($this->reviews->sum('star') / $this->reviews->count(), 2) : 'No Rating now',
             'reviews'  => route('reviews.index', $this->id),
 
