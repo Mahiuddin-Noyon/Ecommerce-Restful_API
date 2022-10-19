@@ -15,10 +15,10 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'product_id'=> function(){return Product::all()->random(5);},
+            'product_id'=> $this->faker->numberBetween(1,50),
             'customer'  => $this->faker->name,
             'review'    => $this->faker->paragraph,
-            'star'      => $this->faker->numberBetween(0,5)
+            'star'      => $this->faker->numberBetween(0,5),
         ];
     }
 }
