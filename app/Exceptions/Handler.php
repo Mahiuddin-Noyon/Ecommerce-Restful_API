@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Facade\FlareClient\Http\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -33,6 +36,24 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        $this->reportable(function (Throwable $e) {
+        });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($request->expectsJson()) {
+
+            if ($e instanceof ModelNotFoundException) {
+                return response()->json([
+                    "error" => "Product not found"
+                ],404);
+            }
+            if($e instanceof NotFoundHttpException){
+                return response()->json([
+                    "error" => "Route Not Found"
+                ],404);
+            }
+        }
     }
 }
