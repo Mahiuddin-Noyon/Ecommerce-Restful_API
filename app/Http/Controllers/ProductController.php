@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
+use Facade\FlareClient\Http\Response;
 use GuzzleHttp\Psr7\Request;
 
 class ProductController extends Controller
@@ -105,6 +106,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response(null,204);
     }
 }
