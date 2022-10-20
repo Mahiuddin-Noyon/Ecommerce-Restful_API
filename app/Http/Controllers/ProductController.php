@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ProductNotBelongsToUser;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -9,6 +10,7 @@ use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use Facade\FlareClient\Http\Response;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -54,7 +56,7 @@ class ProductController extends Controller
 
         return response([
             'data' => new ProductResource($product)
-        ],201);
+        ], 201);
     }
 
     /**
@@ -88,14 +90,15 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->ProductUserCheck($product);
         $request['detail'] = $request->description;
         unset($request['description']);
 
         $product->update($request->all());
-        
+
         return response([
             'data' => new ProductResource($product)
-        ],201);
+        ], 201);
     }
 
     /**
@@ -107,6 +110,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(null,204);
+        return response(null, 204);
+    }
+    public function ProductUserCheck($product)
+    {
+
+        if (Auth::id() !== $product->user_id) {
+            throw new ProductNotBelongsToUser();
+        }
     }
 }
