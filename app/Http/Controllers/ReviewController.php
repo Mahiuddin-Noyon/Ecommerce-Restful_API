@@ -39,7 +39,12 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request, Product $product)
     {
-        return $product;
+        $review = new Review($request->all());
+        $product->reviews()->save($review);
+
+        return response([
+            'data' => new ReviewResource($review)
+        ],201);
     }
 
     /**

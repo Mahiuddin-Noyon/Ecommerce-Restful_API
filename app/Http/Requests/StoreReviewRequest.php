@@ -25,8 +25,8 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'customer' => 'required',
-            'review'   => 'required|integer|between:1,5',
-            'star'     => 'required',
+            'review'   => 'required',
+            'star'     => 'required|integer|between:1,5'
         ];
     }
 }
