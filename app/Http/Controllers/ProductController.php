@@ -109,10 +109,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->ProductUserCheck($product);
         $product->delete();
         return response(null, 204);
     }
-    
+
     public function ProductUserCheck($product)
     {
 
