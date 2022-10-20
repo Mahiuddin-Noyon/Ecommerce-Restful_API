@@ -37,9 +37,9 @@ class ReviewController extends Controller
      * @param  \App\Http\Requests\StoreReviewRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReviewRequest $request)
+    public function store(StoreReviewRequest $request, Product $product)
     {
-        //
+        return $product;
     }
 
     /**
@@ -50,7 +50,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        
     }
 
     /**

@@ -56,7 +56,7 @@ class ProductController extends Controller
 
         return response([
             'data' => new ProductResource($product)
-        ], 201);
+        ], 200);
     }
 
     /**
@@ -112,6 +112,7 @@ class ProductController extends Controller
         $product->delete();
         return response(null, 204);
     }
+    
     public function ProductUserCheck($product)
     {
 

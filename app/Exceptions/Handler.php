@@ -34,14 +34,9 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+
         $this->reportable(function (Throwable $e) {
         });
     }
 
-    public function render($request, Throwable $e)
-    {
-        if ($request->expectsJson()){
-           return $this->apiException($request, $e);
-        }
-    }
 }
